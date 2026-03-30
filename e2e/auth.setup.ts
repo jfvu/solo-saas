@@ -11,8 +11,12 @@ setup("authenticate", async ({ page }) => {
   await page.goto("/login");
 
   // 填写测试账号（在 .env.test 中配置 E2E_TEST_EMAIL / E2E_TEST_PASSWORD）
-  await page.getByLabel(/email/i).fill(process.env.E2E_TEST_EMAIL ?? "");
-  await page.getByLabel(/password/i).fill(process.env.E2E_TEST_PASSWORD ?? "");
+  await page
+    .getByLabel(/email/i)
+    .fill(process.env.E2E_TEST_EMAIL ?? "test@example.com");
+  await page
+    .getByLabel(/password/i)
+    .fill(process.env.E2E_TEST_PASSWORD ?? "password123");
   await page.getByRole("button", { name: /sign in/i }).click();
 
   // 等待跳转到 dashboard 确认登录成功

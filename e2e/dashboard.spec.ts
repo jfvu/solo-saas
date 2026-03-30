@@ -22,7 +22,9 @@ test.describe("Dashboard — 核心流程", () => {
 test.describe("订阅流程", () => {
   test("免费用户看到升级提示", async ({ page }) => {
     await page.goto("/dashboard/billing");
-    await expect(page.getByText(/upgrade|pro plan/i)).toBeVisible();
+    await expect(
+      page.getByRole("heading", { name: /upgrade to pro plan/i })
+    ).toBeVisible();
   });
 });
 

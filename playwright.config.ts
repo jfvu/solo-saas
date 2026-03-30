@@ -10,10 +10,10 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: [["html"], ["list"]],
+  reporter: [["html", { open: "never" }], ["list"]],
 
   use: {
-    baseURL: process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000",
+    baseURL: process.env.NEXT_PUBLIC_APP_URL ?? "http://127.0.0.1:3011",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
@@ -32,9 +32,9 @@ export default defineConfig({
       dependencies: ["setup"],
     },
     {
-      name: "Mobile Safari",
+      name: "Mobile Chrome",
       use: {
-        ...devices["iPhone 14"],
+        ...devices["Pixel 7"],
         storageState: "e2e/.auth/user.json",
       },
       dependencies: ["setup"],
@@ -43,9 +43,9 @@ export default defineConfig({
 
   // 本地开发时自动启动 Next.js dev server
   webServer: {
-    command: "npm run dev",
-    url: "http://localhost:3000",
-    reuseExistingServer: !process.env.CI,
+    command: "npm run dev -- --port 3011 --hostname 127.0.0.1",
+    url: "http://127.0.0.1:3011",
+    reuseExistingServer: false,
     timeout: 120 * 1000,
   },
 });
