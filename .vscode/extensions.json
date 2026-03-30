@@ -1,0 +1,37 @@
+/**
+ * VS Code 推荐插件配置
+ * 打开此项目时 VS Code 会提示安装这些插件
+ */
+{
+  "recommendations": [
+    // ─── AI 辅助 ───────────────────────────
+    "github.copilot",
+    "github.copilot-chat",
+
+    // ─── 核心开发体验 ──────────────────────
+    "prisma.prisma",
+    "bradlc.vscode-tailwindcss",
+    "usernamehw.errorlens",
+    "eamodio.gitlens",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+
+    // ─── 接口测试 ──────────────────────────
+    "humao.rest-client",
+
+    // ─── E2E 测试 ──────────────────────────
+    "ms-playwright.playwright",
+
+    // ─── CI/CD ──────────────────────────────
+    "github.vscode-github-actions",
+
+    // ─── 容器 & 部署 ───────────────────────
+    "ms-azuretools.vscode-docker",
+
+    // ─── 项目管理 ─────────────────────────
+    "alefragnani.project-manager",
+
+    // ─── 可视化建模 ────────────────────────
+    "pomdtr.excalidraw-editor"
+  ]
+}

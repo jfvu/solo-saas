@@ -1,0 +1,128 @@
+### Solo SaaS — API 接口测试
+### 安装 REST Client 插件后，点击 "Send Request" 直接测试
+### 变量：在 .env.local 中设置 BASE_URL=http://localhost:3000
+
+@baseUrl = http://localhost:3000
+@contentType = application/json
+@token = YOUR_JWT_TOKEN_HERE
+
+# ─────────────────────────────────────────
+# 健康检查
+# ─────────────────────────────────────────
+
+### GET 健康检查
+GET {{baseUrl}}/api/health HTTP/1.1
+
+###
+
+# ─────────────────────────────────────────
+# 认证
+# ─────────────────────────────────────────
+
+### POST 注册 / 登录（Magic Link）
+POST {{baseUrl}}/api/auth/signin HTTP/1.1
+Content-Type: {{contentType}}
+
+{
+  "email": "test@example.com",
+  "callbackUrl": "{{baseUrl}}/dashboard"
+}
+
+###
+
+### GET 获取当前会话
+GET {{baseUrl}}/api/auth/session HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+# ─────────────────────────────────────────
+# 用户
+# ─────────────────────────────────────────
+
+### GET 获取当前用户信息
+GET {{baseUrl}}/api/user/me HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+### PATCH 更新用户信息
+PATCH {{baseUrl}}/api/user/me HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "name": "张三",
+  "avatarUrl": "https://example.com/avatar.png"
+}
+
+###
+
+# ─────────────────────────────────────────
+# 组织
+# ─────────────────────────────────────────
+
+### POST 创建组织
+POST {{baseUrl}}/api/organizations HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "name": "我的公司",
+  "slug": "my-company"
+}
+
+###
+
+### GET 获取组织列表
+GET {{baseUrl}}/api/organizations HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+### POST 邀请成员
+POST {{baseUrl}}/api/organizations/my-company/members HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "email": "colleague@example.com",
+  "role": "MEMBER"
+}
+
+###
+
+# ─────────────────────────────────────────
+# 订阅 / 计费
+# ─────────────────────────────────────────
+
+### POST 创建 Stripe Checkout Session
+POST {{baseUrl}}/api/billing/checkout HTTP/1.1
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "priceId": "price_xxxxx",
+  "successUrl": "{{baseUrl}}/dashboard?success=1",
+  "cancelUrl": "{{baseUrl}}/pricing"
+}
+
+###
+
+### GET 获取订阅状态
+GET {{baseUrl}}/api/billing/subscription HTTP/1.1
+Authorization: Bearer {{token}}
+
+###
+
+### POST Stripe Webhook（本地测试用 stripe listen --forward-to localhost:3000/api/billing/webhook）
+POST {{baseUrl}}/api/billing/webhook HTTP/1.1
+Content-Type: {{contentType}}
+Stripe-Signature: t=xxx,v1=xxx
+
+{
+  "type": "checkout.session.completed",
+  "data": { "object": {} }
+}
+
+###

@@ -1,0 +1,41 @@
+{
+  "projectId": "solo-saas",
+  "framework": "nextjs",
+  "buildCommand": "npx prisma generate && npm run build",
+  "outputDirectory": ".next",
+  "devCommand": "npm run dev",
+  "installCommand": "npm ci",
+  "regions": ["hkg1"],
+  "env": [
+    "DATABASE_URL",
+    "DIRECT_URL",
+    "NEXTAUTH_SECRET",
+    "NEXT_PUBLIC_SUPABASE_URL",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+    "SUPABASE_SERVICE_ROLE_KEY",
+    "STRIPE_SECRET_KEY",
+    "STRIPE_WEBHOOK_SECRET",
+    "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY",
+    "NEXT_PUBLIC_SENTRY_DSN",
+    "RESEND_API_KEY"
+  ],
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-XSS-Protection", "value": "1; mode=block" }
+      ]
+    }
+  ],
+  "rewrites": [],
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "cookie", "key": "next-auth.session-token" }],
+      "destination": "/dashboard",
+      "permanent": false
+    }
+  ]
+}

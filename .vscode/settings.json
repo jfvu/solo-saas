@@ -1,0 +1,42 @@
+{
+  // ─── 格式化 ────────────────────────────────────────
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.organizeImports": "explicit"
+  },
+
+  // ─── TypeScript ──────────────────────────────────
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative",
+
+  // ─── Tailwind ────────────────────────────────────
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+
+  // ─── Prisma ──────────────────────────────────────
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  },
+
+  // ─── 文件关联 ────────────────────────────────────
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+
+  // ─── 测试 ────────────────────────────────────────
+  "playwright.reuseBrowser": true,
+
+  // ─── 终端 ────────────────────────────────────────
+  "terminal.integrated.env.osx": {
+    "DATABASE_URL": "${env:DATABASE_URL}"
+  },
+
+  // ─── Git ─────────────────────────────────────────
+  "git.autofetch": true,
+  "gitlens.hovers.currentLine.over": "line"
+}
